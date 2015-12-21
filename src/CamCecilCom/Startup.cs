@@ -5,6 +5,7 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
 
 namespace CamCecilCom
 {
@@ -15,9 +16,16 @@ namespace CamCecilCom
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
             // Builds the Configuration object
+            string envConfigPath = $"appsettings.{env.EnvironmentName}.json";
+
             var confBuilder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json");
+                .AddJsonFile("appsettings.json");
+
+            if (File.Exists( envConfigPath ))
+            {
+                confBuilder.AddJsonFile(envConfigPath);
+            }
+
             this.Configuration = confBuilder.Build();
         }
 
@@ -39,9 +47,12 @@ namespace CamCecilCom
             {
                 options.MapRoute("default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: "Main/Index"
+                    defaults: new { controller = "Main", Action = "Index" }
                     );
             });
+
+            app.UseStaticFiles();
+            
         }
 
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
