@@ -34,13 +34,12 @@ namespace CamCecilCom
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseSql
 
             app.UseMvc(options =>
             {
                 options.MapRoute("default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: "Blog/Index"
+                    defaults: "Main/Index"
                     );
             });
         }
