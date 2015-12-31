@@ -1,9 +1,11 @@
-using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CamCecilCom.Models
 {
     public class User
     {
-        // Empty until Identity integration.
+        [Key]
+        public int Id { get; set; }
+        public string Username { get; set; }
     }
 }

@@ -21,6 +21,9 @@ namespace CamCecilCom
             var confBuilder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json");
 
+            // Adds a private development config file that is added to
+            // the .gitignore so that important strings are not checked
+            // into the git repository.
             if (File.Exists( envConfigPath ))
             {
                 confBuilder.AddJsonFile(envConfigPath);
@@ -31,13 +34,20 @@ namespace CamCecilCom
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // MVC 6
             services.AddMvc();
+
+            // EntityFramework 7
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<AppDbContext>(options =>
                 {
+                    // Will use the last Data:DefaultConnection:ConnectionString
+                    // that was loaded from the config files in the constructor.
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
                 });
+
+            // Dependency Injections
         }
 
         public void Configure(IApplicationBuilder app)
