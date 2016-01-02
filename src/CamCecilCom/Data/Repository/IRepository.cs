@@ -15,6 +15,6 @@ namespace CamCecilCom.Data.Repository
     {
         IEnumerable<TClass> GetAll();
         IEnumerable<TClass> GetAllWithChildren();
-        TClass GetById(int id);
+        TClass GetById(TPk id);
     }
 }

@@ -5,7 +5,7 @@ namespace CamCecilCom.Models
     public class User
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Username { get; set; }
     }
 }

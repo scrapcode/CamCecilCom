@@ -9,9 +9,9 @@ namespace CamCecilCom.Controllers
     [Route("api/[controller]")]
     public class BlogPostController : Controller
     {
-        private IRepository<BlogPost, int> _repository;
+        private IRepository<BlogPost, string> _repository;
 
-        public BlogPostController(IRepository<BlogPost, int> repository)
+        public BlogPostController(IRepository<BlogPost, string> repository)
         {
             _repository = repository;
         }
@@ -23,7 +23,7 @@ namespace CamCecilCom.Controllers
         }
 
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public JsonResult Get(string id)
         {
             return Json(_repository.GetById(id));
         }

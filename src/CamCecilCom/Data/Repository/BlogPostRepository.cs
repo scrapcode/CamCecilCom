@@ -6,7 +6,7 @@ using System;
 
 namespace CamCecilCom.Data.Repository
 {
-    public class BlogPostRepository : IRepository<BlogPost, int>
+    public class BlogPostRepository : IRepository<BlogPost, string>
     {
         private AppDbContext _context;
 
@@ -30,12 +30,30 @@ namespace CamCecilCom.Data.Repository
                 .ToList();
         }
 
-        public BlogPost GetById(int id)
+        public BlogPost GetById(string id)
         {
             return _context.BlogPosts
                 .Where(p => p.Id == id)
                 .Include(p => p.Author)
                 .First();
+        }
+
+        public void Add(BlogPost post)
+        {
+            try
+            {
+                post.Id = Guid.NewGuid().ToString();
+                _context.BlogPosts.Add(post);
+            }
+            catch(Exception e)
+            {
+                // Exception caught.
+            }
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

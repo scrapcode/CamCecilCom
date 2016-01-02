@@ -20,6 +20,7 @@ namespace CamCecilCom.Data
                 // Create the fakeUser
                 var fakeUser = new User()
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Username = "cambo"
                 };
 
@@ -29,6 +30,7 @@ namespace CamCecilCom.Data
                 // Create the fake blog post
                 var fakeBlogPost = new BlogPost()
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Title = "Hello world!",
                     Created = DateTime.UtcNow,
                     Author = fakeUser,

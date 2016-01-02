@@ -57,7 +57,8 @@ namespace CamCecilCom
 
             // Injections
             services.AddTransient<AppDbContextSeedData>();
-            services.AddScoped<IRepository<BlogPost, int>, BlogPostRepository>();
+            services.AddScoped<IRepository<BlogPost, string>, BlogPostRepository>();
+            services.AddScoped<IRepository<User, string>, UserRepository>();
         }
 
         public void Configure(IApplicationBuilder app, AppDbContextSeedData seeder)
