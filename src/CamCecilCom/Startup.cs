@@ -1,10 +1,14 @@
 ﻿using CamCecilCom.Data;
+using CamCecilCom.Data.Repository;
+using CamCecilCom.Models;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace CamCecilCom
@@ -16,7 +20,7 @@ namespace CamCecilCom
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
             // Builds the Configuration object
-            string envConfigPath = $"appsettings.{env.EnvironmentName}.json";
+            string envConfigPath = $"{appEnv.ApplicationBasePath}/appsettings.{env.EnvironmentName}.json";
 
             var confBuilder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json");
@@ -24,12 +28,16 @@ namespace CamCecilCom
             // Adds a private development config file that is added to
             // the .gitignore so that important strings are not checked
             // into the git repository.
+            Debug.Assert(File.Exists(envConfigPath));
+
             if (File.Exists( envConfigPath ))
             {
                 confBuilder.AddJsonFile(envConfigPath);
             }
-
+            
             this.Configuration = confBuilder.Build();
+
+            string connString = Configuration["Data:DefaultConnection:ConnectionString"];
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -47,11 +55,17 @@ namespace CamCecilCom
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
                 });
 
-            // Dependency Injections
+            // Injections
+            services.AddTransient<AppDbContextSeedData>();
+            services.AddScoped<IBlogPostRepository, BlogPostRepository>();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, AppDbContextSeedData seeder)
         {
+            app.UseStaticFiles();
+
+            app.UseDeveloperExceptionPage();
+
 
             app.UseMvc(options =>
             {
@@ -61,8 +75,7 @@ namespace CamCecilCom
                     );
             });
 
-            app.UseStaticFiles();
-            
+            seeder.EnsureSeedData();
         }
 
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
