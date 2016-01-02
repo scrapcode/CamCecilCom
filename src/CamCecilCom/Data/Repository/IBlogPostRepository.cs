@@ -3,8 +3,9 @@ using CamCecilCom.Models;
 
 namespace CamCecilCom.Data.Repository
 {
-    public interface IBlogPostRepository
+    public interface IRepository
     {
         IEnumerable<BlogPost> GetAll();
+        IEnumerable<BlogPost> GetAllWithAuthors();
     }
 }
