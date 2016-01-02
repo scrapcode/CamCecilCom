@@ -21,5 +21,11 @@ namespace CamCecilCom.Controllers
         {
             return Json(_repository.GetAllWithChildren());
         }
+
+        [HttpGet("{id}")]
+        public JsonResult Get(int id)
+        {
+            return Json(_repository.GetById(id));
+        }
     }
 }

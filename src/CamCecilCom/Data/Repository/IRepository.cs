@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace CamCecilCom.Data.Repository
     {
         IEnumerable<TClass> GetAll();
         IEnumerable<TClass> GetAllWithChildren();
+        TClass GetById(int id);
     }
 }

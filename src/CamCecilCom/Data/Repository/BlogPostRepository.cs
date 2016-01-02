@@ -2,6 +2,7 @@
 using Microsoft.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace CamCecilCom.Data.Repository
 {
@@ -27,6 +28,14 @@ namespace CamCecilCom.Data.Repository
                 .Include(p => p.Author)
                 .OrderBy(p => p.Created)
                 .ToList();
+        }
+
+        public BlogPost GetById(int id)
+        {
+            return _context.BlogPosts
+                .Where(p => p.Id == id)
+                .Include(p => p.Author)
+                .First();
         }
     }
 }
