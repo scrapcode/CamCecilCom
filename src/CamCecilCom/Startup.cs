@@ -57,7 +57,7 @@ namespace CamCecilCom
 
             // Injections
             services.AddTransient<AppDbContextSeedData>();
-            services.AddScoped<IRepository<BlogPost, string>, BlogPostRepository>();
+            services.AddScoped<BlogPostRepository>();
             services.AddScoped<IRepository<User, string>, UserRepository>();
         }
 
