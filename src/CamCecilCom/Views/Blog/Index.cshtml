@@ -1,0 +1,29 @@
+@model IEnumerable<CamCecilCom.ViewModels.BlogPostViewModel>
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Blog";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+        @foreach (CamCecilCom.ViewModels.BlogPostViewModel post in Model)
+        {
+            <div class="post">
+                <h2>@post.Title</h2>
+                <p class="post-info">
+                    <span class="post-date">@post.Created</span>
+                @if (@post.Author != null && !String.IsNullOrEmpty(@post.Author.Username))
+                {
+                    <span class="post-author">By: @post.Author.Username</span>
+                }
+                </p>
+                <div class="post-body">
+                    @post.Body
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+</div>

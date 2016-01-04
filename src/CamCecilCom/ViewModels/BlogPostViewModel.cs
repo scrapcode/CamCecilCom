@@ -17,5 +17,8 @@ namespace CamCecilCom.ViewModels
 
         [Required]
         public string Body { get; set; }
+
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
     }
 }
