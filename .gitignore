@@ -4,6 +4,10 @@
 # Ignore Dev config files
 *.Development.json
 
+# wwwroot auto-generated assets
+src/*/wwwroot/css
+src/*/wwwroot/lib
+
 # User-specific files
 *.suo
 *.user
