@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8 col-md-push-2">
         @foreach (CamCecilCom.ViewModels.BlogPostViewModel post in Model)
         {
             <div class="post">
@@ -20,7 +20,7 @@
                 }
                 </p>
                 <div class="post-body">
-                    @post.Body
+                    @Html.Raw(post.Body)
                 </div>
             </div>
         }

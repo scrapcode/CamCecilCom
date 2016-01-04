@@ -18,7 +18,7 @@ namespace CamCecilCom.Data.Repository
         public IEnumerable<BlogPost> GetAll()
         {
             return _context.BlogPosts
-                .OrderBy(p => p.Created)
+                .OrderByDescending(p => p.Created)
                 .ToList();
         }
 
@@ -26,7 +26,7 @@ namespace CamCecilCom.Data.Repository
         {
             return _context.BlogPosts
                 .Include(p => p.Author)
-                .OrderBy(p => p.Created)
+                .OrderByDescending(p => p.Created)
                 .ToList();
         }
 
