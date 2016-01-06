@@ -1,11 +1,9 @@
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 
 namespace CamCecilCom.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        [Key]
-        public string Id { get; set; }
-        public string Username { get; set; }
     }
 }

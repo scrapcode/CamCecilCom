@@ -23,7 +23,7 @@ namespace CamCecilCom.Data.Repository
         public IEnumerable<User> GetAll()
         {
             return _context.Users
-                .OrderBy(u => u.Username)
+                .OrderBy(u => u.UserName)
                 .ToList();
         }
 

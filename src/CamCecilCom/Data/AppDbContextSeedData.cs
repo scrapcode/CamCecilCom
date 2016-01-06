@@ -1,4 +1,5 @@
 using CamCecilCom.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
 
@@ -7,10 +8,12 @@ namespace CamCecilCom.Data
     public class AppDbContextSeedData
     {
         private AppDbContext _context;
+        private UserManager<User> _userManager;
 
-        public AppDbContextSeedData(AppDbContext context)
+        public AppDbContextSeedData(AppDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public void EnsureSeedData()
@@ -20,8 +23,7 @@ namespace CamCecilCom.Data
                 // Create the fakeUser
                 var fakeUser = new User()
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Username = "cambo"
+                    UserName = "Cambo"
                 };
 
                 // Add the fakeUser to the context

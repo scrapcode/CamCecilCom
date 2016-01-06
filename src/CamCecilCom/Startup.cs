@@ -3,6 +3,7 @@ using CamCecilCom.Data.Repository;
 using CamCecilCom.Models;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,6 +46,14 @@ namespace CamCecilCom
             // MVC 6
             services.AddMvc();
 
+            services.AddIdentity<User, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            })
+            .AddEntityFrameworkStores<AppDbContext>();
+
             // EntityFramework 7
             services.AddEntityFramework()
                 .AddSqlServer()
@@ -67,6 +76,7 @@ namespace CamCecilCom
 
             app.UseDeveloperExceptionPage();
 
+            app.UseIdentity();
 
             app.UseMvc(options =>
             {

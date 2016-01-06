@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Mvc;
 
 namespace CamCecilCom.Controllers
 {
@@ -7,6 +8,12 @@ namespace CamCecilCom.Controllers
         // GET /
         // GET /home/index/
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult SecureArea()
         {
             return View();
         }
