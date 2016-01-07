@@ -1,6 +1,7 @@
 ﻿using CamCecilCom.Data;
 using CamCecilCom.Data.Repository;
 using CamCecilCom.Models;
+using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -13,6 +14,8 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace CamCecilCom
 {
@@ -63,6 +66,23 @@ namespace CamCecilCom
                 config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 8;
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+                config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
+                {
+                    OnRedirectToLogin = ctx =>
+                    {
+                        if (ctx.Request.Path.StartsWithSegments("/api") &&
+                            ctx.Response.StatusCode == (int)HttpStatusCode.OK)
+                        {
+                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        }
+                        else
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+
+                        return Task.FromResult(0);
+                    }
+                };
             })
             .AddEntityFrameworkStores<AppDbContext>();
 
