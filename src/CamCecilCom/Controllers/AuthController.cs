@@ -25,7 +25,7 @@ namespace CamCecilCom.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Main", "Index");
+                return RedirectToAction("Main", "SecureArea");
             }
 
             return View();
@@ -45,7 +45,7 @@ namespace CamCecilCom.Controllers
                 {
                     if (string.IsNullOrWhiteSpace(returnUrl))
                     {
-                        return RedirectToAction("Main", "Index"); 
+                        return RedirectToAction("SecureArea", "Main"); 
                     }
                     else
                     {

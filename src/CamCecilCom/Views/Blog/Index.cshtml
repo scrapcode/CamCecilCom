@@ -14,9 +14,9 @@
                 <h2>@post.Title</h2>
                 <p class="post-info">
                     <span class="post-date">@post.Created</span>
-                @if (@post.Author != null && !String.IsNullOrEmpty(@post.Author.Username))
+                @if (@post.Author != null && !String.IsNullOrEmpty(@post.Author.UserName))
                 {
-                    <span class="post-author">By: @post.Author.Username</span>
+                    <span class="post-author">By: @post.Author.UserName</span>
                 }
                 </p>
                 <div class="post-body">
