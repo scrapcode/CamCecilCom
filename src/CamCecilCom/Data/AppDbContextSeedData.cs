@@ -2,6 +2,7 @@ using CamCecilCom.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CamCecilCom.Data
 {
@@ -16,18 +17,19 @@ namespace CamCecilCom.Data
             _userManager = userManager;
         }
 
-        public void EnsureSeedData()
+        public async Task EnsureSeedData()
         {
             if (!_context.BlogPosts.Any())
             {
-                // Create the fakeUser
+                // Create the fake user
                 var fakeUser = new User()
                 {
-                    UserName = "Cambo"
+                    UserName = "cam",
+                    Email = "ctcecil@gmail.com"
                 };
 
-                // Add the fakeUser to the context
-                _context.Users.Add(fakeUser);
+                // Add the fake user to the database
+                await _userManager.CreateAsync(fakeUser, "P@ssw0rd!1");
 
                 // Create the fake blog post
                 var fakeBlogPost = new BlogPost()

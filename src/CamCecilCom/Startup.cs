@@ -70,7 +70,7 @@ namespace CamCecilCom
             services.AddScoped<IRepository<User, string>, UserRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, AppDbContextSeedData seeder)
+        public async void Configure(IApplicationBuilder app, AppDbContextSeedData seeder)
         {
             app.UseStaticFiles();
 
@@ -86,7 +86,7 @@ namespace CamCecilCom
                     );
             });
 
-            seeder.EnsureSeedData();
+            await seeder.EnsureSeedData();
         }
 
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
