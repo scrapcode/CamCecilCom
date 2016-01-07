@@ -5,6 +5,7 @@ using Microsoft.AspNet.Mvc;
 using System;
 using System.Threading.Tasks;
 
+
 namespace CamCecilCom.Controllers
 {
     public class AuthController : Controller
@@ -60,6 +61,10 @@ namespace CamCecilCom.Controllers
 
             return View();
         }
+        
+        //
+        // Logout
+        //
 
         // GET /Auth/Logout
         public async Task<IActionResult> Logout()
