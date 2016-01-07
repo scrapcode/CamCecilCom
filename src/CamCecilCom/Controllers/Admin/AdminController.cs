@@ -1,11 +1,23 @@
 using System;
+using Microsoft.AspNet.Mvc;
+
+using CamCecilCom.Data.Repository;
 
 namespace CamCecilCom.Controllers
 {
-    private AdminRepository _repository;
-    
-    public AdminController(AdminRepository repository)
+    public class AdminController : Controller
     {
-        _repository = repository;
+        private AdminRepository _repository;
+        
+        public AdminController(AdminRepository repository)
+        {
+            _repository = repository;
+        }
+        
+        // GET /Admin/
+        public Index()
+        {
+            return View();
+        }
     }
 }
