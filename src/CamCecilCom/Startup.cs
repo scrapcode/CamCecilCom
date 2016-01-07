@@ -4,10 +4,12 @@ using CamCecilCom.Models;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -44,7 +46,17 @@ namespace CamCecilCom
         public void ConfigureServices(IServiceCollection services)
         {
             // MVC 6
-            services.AddMvc();
+            services.AddMvc(config =>
+            {
+#if !DEBUG
+                // Use HTTPS for the entire application.
+                config.Filters.Add(new RequireHttpsAttribute());
+#endif
+            })
+            .AddJsonOptions(opt =>
+            {
+                opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             services.AddIdentity<User, IdentityRole>(config =>
             {
