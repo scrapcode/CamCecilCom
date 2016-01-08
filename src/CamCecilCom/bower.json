@@ -6,6 +6,8 @@
     "jquery-validation": "~1.14.0",
     "jquery-validation-unobtrusive": "~3.2.5",
     "bootstrap": "~3.3.6",
-    "angular2": "~1.4.8"
+    "angular2": "~1.4.8",
+    "morrisjs": "~0.5.1",
+    "font-awesome": "~4.5.0"
   }
 }

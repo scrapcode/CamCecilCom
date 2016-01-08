@@ -2,20 +2,25 @@ using System;
 using Microsoft.AspNet.Mvc;
 
 using CamCecilCom.Data.Repository;
+using CamCecilCom.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CamCecilCom.Controllers
 {
     public class AdminController : Controller
     {
-        private AdminRepository _repository;
-        
-        public AdminController(AdminRepository repository)
+        private UserManager<User> _userManager;
+        private BlogPostRepository _postRepository;
+
+
+        public AdminController(UserManager<User> userManager, BlogPostRepository postRepository)
         {
-            _repository = repository;
+            _userManager = userManager;
+            _postRepository = postRepository;
         }
         
         // GET /Admin/
-        public Index()
+        public IActionResult Index()
         {
             return View();
         }
