@@ -3,6 +3,7 @@
 using CamCecilCom.Data.Repository;
 using CamCecilCom.Models;
 using CamCecilCom.ViewModels;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using System.Collections.Generic;
 
@@ -38,6 +39,14 @@ namespace CamCecilCom.Controllers
             }
 
             return View(blogPostVMs);
+        }
+
+        // GET /<controller>/add
+        [Authorize]
+        public IActionResult Add()
+        {
+            BlogPostViewModel vm = new BlogPostViewModel();
+            return View(vm);
         }
     }
 }
