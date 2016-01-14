@@ -43,7 +43,7 @@ namespace CamCecilCom.Controllers
 
         // GET /<controller>/add
         [Authorize]
-        public IActionResult Add()
+        public IActionResult Create()
         {
             BlogPostViewModel vm = new BlogPostViewModel();
             return View(vm);
