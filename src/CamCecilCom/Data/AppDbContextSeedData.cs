@@ -1,5 +1,7 @@
 using CamCecilCom.Models;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,16 +11,24 @@ namespace CamCecilCom.Data
     public class AppDbContextSeedData
     {
         private AppDbContext _context;
+        private RoleManager<IdentityRole> _roleManager;
         private UserManager<User> _userManager;
 
-        public AppDbContextSeedData(AppDbContext context, UserManager<User> userManager)
+        public AppDbContextSeedData(AppDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task EnsureSeedData()
         {
+            if(!await _roleManager.RoleExistsAsync("Admin"))
+            {
+                IdentityRole adminRole = new IdentityRole("Admin");
+                await _roleManager.CreateAsync(adminRole);
+            }
+
             if (!_context.BlogPosts.Any())
             {
                 // Create the fake user
@@ -30,6 +40,9 @@ namespace CamCecilCom.Data
 
                 // Add the fake user to the database
                 await _userManager.CreateAsync(fakeUser, "P@ssw0rd!1");
+
+                // Add the fake user to the role "Admin"
+                await _userManager.AddToRoleAsync(fakeUser, "Admin");
 
                 // Create the fake blog post
                 var fakeBlogPost = new BlogPost()

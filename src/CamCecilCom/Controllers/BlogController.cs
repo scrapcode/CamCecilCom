@@ -42,7 +42,7 @@ namespace CamCecilCom.Controllers
         }
 
         // GET /<controller>/add
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             BlogPostViewModel vm = new BlogPostViewModel();

@@ -5,6 +5,7 @@ using CamCecilCom.Data.Repository;
 using CamCecilCom.Models;
 using CamCecilCom.ViewModels;
 using System.Linq;
+using Microsoft.AspNet.Authorization;
 
 namespace CamCecilCom.Controllers
 {
@@ -30,6 +31,7 @@ namespace CamCecilCom.Controllers
             return Json(_repository.GetById(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public JsonResult Post([FromBody]BlogPostViewModel post)
         {

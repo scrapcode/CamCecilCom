@@ -117,7 +117,7 @@ namespace CamCecilCom
                     defaults: new { controller = "Main", Action = "Index" }
                     );
             });
-
+            
             await seeder.EnsureSeedData();
         }
 
